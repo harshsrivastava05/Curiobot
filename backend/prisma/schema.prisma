@@ -7,6 +7,7 @@ generator client {
   provider             = "prisma-client-py"
   interface            = "asyncio"
   recursive_type_depth = 5
+  output               = "../myenv/Lib/site-packages/prisma"
 }
 
 model User {
@@ -33,8 +34,20 @@ model Document {
   createdAt    DateTime      @default(now()) @map("created_at")
   documentData DocumentData?
   vectorData   VectorMetadata[]
+  messages     Message[]
 
   @@map("documents")
+}
+
+model Message {
+  id         String   @id @default(uuid())
+  documentId String   @map("document_id")
+  document   Document @relation(fields: [documentId], references: [id], onDelete: Cascade)
+  role       String   // "user" or "ai"
+  content    String
+  createdAt  DateTime @default(now()) @map("created_at")
+
+  @@map("messages")
 }
 
 model DocumentData {
