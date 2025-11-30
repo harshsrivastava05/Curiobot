@@ -1,0 +1,40 @@
+@import "tailwindcss";
+:root {
+  --background: #e0e5ec;
+  --foreground: #4a5568;
+  
+  --shadow-light: #ffffff;
+  --shadow-dark: #a3b1c6;
+  
+  --primary: #667eea;
+  --primary-foreground: #ffffff;
+  
+  --radius: 1rem;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background-color: var(--background);
+  color: var(--foreground);
+}
+
+.neo-shadow {
+  box-shadow: 9px 9px 16px var(--shadow-dark), -9px -9px 16px var(--shadow-light);
+}
+
+.neo-inset {
+  box-shadow: inset 6px 6px 10px var(--shadow-dark), inset -6px -6px 10px var(--shadow-light);
+}
+
+.neo-btn {
+  background: linear-gradient(145deg, #f0f5fc, #caced4);
+  box-shadow: 5px 5px 10px var(--shadow-dark), -5px -5px 10px var(--shadow-light);
+  transition: all 0.2s ease;
+}
+
+.neo-btn:active {
+  box-shadow: inset 5px 5px 10px var(--shadow-dark), inset -5px -5px 10px var(--shadow-light);
+}

@@ -1,0 +1,16 @@
+fastapi
+uvicorn[standard]
+python-multipart
+prisma
+google-cloud-storage
+google-generativeai
+pinecone
+redis
+google-auth
+requests
+python-dotenv
+pydantic-settings
+langgraph
+google-cloud-storage
+redis
+pymupdf
