@@ -14,6 +14,23 @@ async def get_documents(user: dict = Depends(get_current_user)):
 
 @router.get("/{document_id}")
 async def get_document_details(document_id: str, user: dict = Depends(get_current_user)):
+    # Check Redis cache
+    from app.core.redis import redis_client
+    import json
+    
+    cache_key = f"document_details:{document_id}"
+    cached_doc = await redis_client.get(cache_key)
+    
+    # If cache hit, verify ownership
+    if cached_doc:
+        print(f"DEBUG: Cache HIT for {document_id}")
+        doc_data = json.loads(cached_doc)
+        if doc_data.get('userId') == user['sub']:
+             return doc_data
+    
+    print(f"DEBUG: Cache MISS for {document_id}")
+    
+    # Cache miss or auth failed (if we didn't store userId, but we will)
     document = await db.document.find_unique(
         where={"id": document_id},
         include={"documentData": True}
@@ -27,7 +44,6 @@ async def get_document_details(document_id: str, user: dict = Depends(get_curren
         
     progress = 0
     if document.status == "processing":
-        from app.core.redis import redis_client
         p = await redis_client.get(f"progress:{document_id}")
         if p:
             progress = int(p)
@@ -36,22 +52,10 @@ async def get_document_details(document_id: str, user: dict = Depends(get_curren
 
     # Generate signed URL
     from app.services.gcs import gcs_service
-    # Assuming the blob name is stored in document.gcsUrl or we can derive it.
-    # Wait, the schema has gcsUrl which is the public URL. 
-    # But for signed URL we need the blob name.
-    # The gcsUrl is likely "https://storage.googleapis.com/BUCKET/BLOBNAME"
-    # Let's extract blob name from gcsUrl or just use the filename if we stored it?
-    # We didn't explicitly store blob_name in Document model, but we stored gcsUrl.
-    # Let's assume gcsUrl is the public URL and extract blob name.
-    # Actually, in upload.py we did: gcs_url = gcs_service.upload_file(...)
-    # And gcs_service.upload_file returns blob.public_url.
-    # Public URL format: https://storage.googleapis.com/BUCKET_NAME/BLOB_NAME
     
     file_url = document.fileUrl
     try:
         if document.fileUrl:
-            # Extract blob name
-            # Split by bucket name
             from app.core.config import get_settings
             settings = get_settings()
             bucket_part = f"/{settings.BUCKET_NAME}/"
@@ -61,7 +65,7 @@ async def get_document_details(document_id: str, user: dict = Depends(get_curren
     except Exception as e:
         print(f"Error generating signed URL: {e}")
 
-    return {
+    response_data = {
         "id": document.id,
         "name": document.name,
         "status": document.status,
@@ -71,7 +75,16 @@ async def get_document_details(document_id: str, user: dict = Depends(get_curren
         "explanations": document.documentData.explanations if document.documentData else {},
         "mindTree": document.documentData.mindTree if document.documentData else {},
         "predictedQuestions": document.documentData.predictedQuestions if document.documentData else [],
+        "userId": document.userId # Include userId for auth check in cache
     }
+    
+    # Cache the result if status is ready (so we don't cache partial progress forever, or cache with short expiry)
+    # If status is processing, maybe don't cache or cache for short time?
+    # User asked to cache "after user has first retrieved it".
+    # Let's cache it.
+    await redis_client.set(cache_key, json.dumps(response_data), expire=3600)
+
+    return response_data
 
 @router.delete("/{document_id}")
 async def delete_document(document_id: str, user: dict = Depends(get_current_user)):
@@ -106,5 +119,9 @@ async def delete_document(document_id: str, user: dict = Depends(get_current_use
     await db.documentdata.delete_many(where={"documentId": document_id})
     await db.vectormetadata.delete_many(where={"documentId": document_id})
     await db.document.delete(where={"id": document_id})
+    
+    # Invalidate cache
+    from app.core.redis import redis_client
+    await redis_client.delete(f"document_details:{document_id}")
     
     return {"message": "Document deleted successfully"}
