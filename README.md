@@ -5,22 +5,22 @@ Curiobot is an AI-powered study assistant that transforms PDF documents into int
 ## Visuals
 
 ### Homepage
-![Homepage](project-images/Homepage.png)
+![Homepage](Project-images/Homepage.png)
 
 ### Dashboard
-![Dashboard](project-images/Dashboard.png)
+![Dashboard](Project-images/Dashboard.png)
 
 ### Interactive Mind Map
-![Mind Map](project-images/Mindtree.png)
+![Mind Map](Project-images/Mindtree.png)
 
 ### AI Q&A Interface
-![AI Q&A](project-images/AI_Q&A.png)
+![AI Q&A](Project-images/AI_Q&A.png)
 
 ### Key Topics Extraction
-![Key Topics](project-images/Keytopics.png)
+![Key Topics](Project-images/Keytopics.png)
 
 ### Predicted Questions
-![Predicted Questions](project-images/Predicted_Q&A.png)
+![Predicted Questions](Project-images/Predicted_Q&A.png)
 
 ## Features
 
