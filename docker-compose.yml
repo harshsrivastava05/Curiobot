@@ -2,6 +2,7 @@ version: '3.8'
 
 services:
   backend:
+    image: harshsrivastava05/curiobot-backend:latest
     build:
       context: ./backend
       dockerfile: Dockerfile
@@ -28,12 +29,15 @@ services:
     restart: always
 
   frontend:
+    image: harshsrivastava05/curiobot-frontend:latest
     build:
       context: ./frontend
       dockerfile: Dockerfile
     container_name: curiobot-frontend
     ports:
       - "3000:3000"
+    env_file:
+      - ./frontend/.env
     environment:
       - API_URL=http://backend:8000
     depends_on:
