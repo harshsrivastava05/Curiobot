@@ -8,8 +8,8 @@ export default function FAQ() {
       <h2 className="text-3xl font-bold text-center text-gray-800 mb-12">Frequently Asked Questions</h2>
       <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
         {[
-          { q: "How does CurioBot work?", a: "Simply upload your PDF or DOCX file. Our AI analyzes the content to extract key topics, generate summaries, create mind maps, and predict exam questions." },
-          { q: "Is it free to use?", a: "Yes, CurioBot offers a free tier that allows you to process a limited number of documents per month." },
+          { q: "How does ConvoDoc Ai work?", a: "Simply upload your PDF or DOCX file. Our AI analyzes the content to extract key topics, generate summaries, create mind maps, and predict exam questions." },
+          { q: "Is it free to use?", a: "Yes, ConvoDoc Ai offers a free tier that allows you to process a limited number of documents per month." },
           { q: "What file formats are supported?", a: "Currently, we support PDF and DOCX files. We are working on adding support for more formats soon." },
           { q: "Is my data safe?", a: "Absolutely. We use industry-standard encryption to protect your files and personal information." }
         ].map((faq, index) => (

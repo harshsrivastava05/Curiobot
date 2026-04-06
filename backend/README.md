@@ -1,6 +1,6 @@
-# Curiobot Backend
+# ConvoDoc Ai Backend
 
-The backend for Curiobot, an AI-powered document assistant. Built with FastAPI, it handles document processing, vector embeddings, and LLM interactions.
+The backend for ConvoDoc Ai, an AI-powered document assistant. Built with FastAPI, it handles document processing, vector embeddings, and LLM interactions.
 
 ## Features
 

@@ -43,27 +43,15 @@ async def get_document_details(document_id: str, user: dict = Depends(get_curren
         raise HTTPException(status_code=403, detail="Not authorized to view this document")
         
     progress = 0
-    if document.status == "processing":
+    if document.status in ("processing", "topics_ready"):
         p = await redis_client.get(f"progress:{document_id}")
         if p:
             progress = int(p)
     elif document.status == "ready":
         progress = 100
 
-    # Generate signed URL
-    from app.services.gcs import gcs_service
-    
+    # UploadThing URLs are public by default — no signed URL needed
     file_url = document.fileUrl
-    try:
-        if document.fileUrl:
-            from app.core.config import get_settings
-            settings = get_settings()
-            bucket_part = f"/{settings.BUCKET_NAME}/"
-            if bucket_part in document.fileUrl:
-                blob_name = document.fileUrl.split(bucket_part)[1]
-                file_url = gcs_service.generate_signed_url(blob_name)
-    except Exception as e:
-        print(f"Error generating signed URL: {e}")
 
     response_data = {
         "id": document.id,
@@ -78,11 +66,9 @@ async def get_document_details(document_id: str, user: dict = Depends(get_curren
         "userId": document.userId # Include userId for auth check in cache
     }
     
-    # Cache the result if status is ready (so we don't cache partial progress forever, or cache with short expiry)
-    # If status is processing, maybe don't cache or cache for short time?
-    # User asked to cache "after user has first retrieved it".
-    # Let's cache it.
-    await redis_client.set(cache_key, json.dumps(response_data), expire=3600)
+    # Only cache when fully ready — don't cache partial (topics_ready) results
+    if document.status == "ready":
+        await redis_client.set(cache_key, json.dumps(response_data), expire=3600)
 
     return response_data
 
@@ -96,18 +82,16 @@ async def delete_document(document_id: str, user: dict = Depends(get_current_use
     if document.userId != user['sub']:
         raise HTTPException(status_code=403, detail="Not authorized to delete this document")
 
-    # Delete from GCS
+    # Delete from UploadThing
     if document.fileUrl:
         try:
-            from app.services.gcs import gcs_service
-            from app.core.config import get_settings
-            settings = get_settings()
-            bucket_part = f"/{settings.BUCKET_NAME}/"
-            if bucket_part in document.fileUrl:
-                blob_name = document.fileUrl.split(bucket_part)[1]
-                gcs_service.delete_file(blob_name)
+            from app.services.uploadthing_storage import ut_service
+            # Extract file key from URL: https://<appId>.ufs.sh/f/<fileKey>
+            file_key = document.fileUrl.split("/f/")[-1] if "/f/" in document.fileUrl else None
+            if file_key:
+                await ut_service.delete_file(file_key)
         except Exception as e:
-            print(f"Error deleting file from GCS: {e}")
+            print(f"Error deleting file from UploadThing: {e}")
 
     # Delete from DB (Cascade delete should handle related data if configured, otherwise delete manually)
     # Prisma schema doesn't show cascade delete on relations explicitly in the snippet, 

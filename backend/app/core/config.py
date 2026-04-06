@@ -3,18 +3,16 @@ from pydantic_settings import BaseSettings
 from functools import lru_cache
 
 class Settings(BaseSettings):
-    PROJECT_NAME: str = "CurioBot"
+    PROJECT_NAME: str = "ConvoDoc Ai"
     API_V1_STR: str = "/api/v1"
     
     DATABASE_URL: str
     GEMINI_API_KEY: str
     PINECONE_API_KEY: str
     PINECONE_ENV: str
-    GOOGLE_APPLICATION_CREDENTIALS: str
+    UPLOADTHING_TOKEN: str
     REDIS_URL: str
-    GOOGLE_CLIENT_ID: str # Changed from CLERK_ISSUER_URL
-    PROJECT_ID: str
-    BUCKET_NAME: str
+    GOOGLE_CLIENT_ID: str
 
     class Config:
         env_file = ".env"

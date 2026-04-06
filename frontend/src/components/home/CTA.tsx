@@ -10,7 +10,7 @@ export default function CTA() {
         <div className="relative z-10">
           <h2 className="text-3xl md:text-5xl font-bold text-gray-800 mb-6">Ready to transform your grades?</h2>
           <p className="text-xl text-gray-600 mb-10 max-w-2xl mx-auto">
-            Join thousands of students using CurioBot to study smarter. It's free to get started.
+            Join thousands of students using ConvoDoc Ai to study smarter. It's free to get started.
           </p>
           <Link href="/dashboard" className="neo-btn px-10 py-4 rounded-full font-bold text-primary text-lg inline-flex items-center gap-2">
             Start Learning Now <ArrowRight className="w-5 h-5" />

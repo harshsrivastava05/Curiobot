@@ -1,6 +1,6 @@
-# Curiobot Frontend
+# ConvoDoc Ai Frontend
 
-The frontend for Curiobot, built with Next.js 14, Tailwind CSS, and React Flow. It provides a modern, neomorphic interface for interacting with your documents.
+The frontend for ConvoDoc Ai, built with Next.js 14, Tailwind CSS, and React Flow. It provides a modern, neomorphic interface for interacting with your documents.
 
 ## Features
 

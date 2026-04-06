@@ -22,7 +22,7 @@ export default function Hero() {
           Not Harder.
         </h1>
         <p className="text-xl text-gray-600 mb-8 leading-relaxed max-w-lg">
-          CurioBot transforms your documents into interactive study guides, mind maps, and quizzes instantly using AI.
+          ConvoDoc Ai transforms your documents into interactive study guides, mind maps, and quizzes instantly using AI.
         </p>
         
         <div className="flex flex-col sm:flex-row gap-4">

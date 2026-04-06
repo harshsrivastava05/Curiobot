@@ -11,7 +11,7 @@ export default function Footer() {
               <div className="w-8 h-8 rounded-lg bg-primary flex items-center justify-center text-white font-bold text-xl">
                 C
               </div>
-              <span className="text-xl font-bold text-gray-800 tracking-tight">CurioBot</span>
+              <span className="text-xl font-bold text-gray-800 tracking-tight">ConvoDoc Ai</span>
             </Link>
             <p className="text-gray-500 text-sm leading-relaxed">
               Empowering students with AI-driven study tools. Transform any document into a personalized learning experience.
@@ -47,7 +47,7 @@ export default function Footer() {
 
         <div className="border-t border-gray-300 pt-8 flex flex-col md:flex-row justify-between items-center gap-4">
           <p className="text-sm text-gray-500">
-            © {new Date().getFullYear()} CurioBot. All rights reserved.
+            © {new Date().getFullYear()} ConvoDoc Ai. All rights reserved.
           </p>
           <div className="flex gap-4">
             <a href="#" className="neo-btn w-8 h-8 rounded-full flex items-center justify-center text-gray-600 hover:text-primary transition-colors">

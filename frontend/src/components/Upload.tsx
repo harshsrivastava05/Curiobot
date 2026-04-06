@@ -34,8 +34,8 @@ export default function Upload() {
       // For Google OAuth, we might use the ID token or just rely on session if backend verifies it differently.
       // Assuming we pass the ID token.
       // Use backend token
-      const token = (session as any).backendToken; 
-      
+      const token = (session as any).backendToken;
+
       const formData = new FormData();
       formData.append("file", file);
 
@@ -48,7 +48,8 @@ export default function Upload() {
       });
 
       if (!res.ok) {
-        throw new Error("Upload failed");
+        const errorData = await res.json();
+        throw new Error(errorData.detail);
       }
 
       const data = await res.json();

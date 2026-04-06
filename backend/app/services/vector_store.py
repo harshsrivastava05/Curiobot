@@ -12,11 +12,12 @@ index = pc.Index("curiobot") # Assuming index name is 'curiobot' as per screensh
 genai.configure(api_key=settings.GEMINI_API_KEY)
 
 async def generate_embedding(text: str) -> list:
-    # Use Gemini for embeddings
+    # Use Gemini for embeddings (truncated to 768 dims to match Pinecone index)
     result = await genai.embed_content_async(
-        model="models/embedding-001",
+        model="models/gemini-embedding-001",
         content=text,
         task_type="retrieval_document",
+        output_dimensionality=768,
     )
     return result['embedding']
 
@@ -40,9 +41,10 @@ async def upsert_vectors(document_id: str, chunks: list):
 async def query_vectors(query: str, filter: dict = None, top_k: int = 5):
     # Embed query
     result = await genai.embed_content_async(
-        model="models/embedding-001",
+        model="models/gemini-embedding-001",
         content=query,
         task_type="retrieval_query",
+        output_dimensionality=768,
     )
     embedding = result['embedding']
     
