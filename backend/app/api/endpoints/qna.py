@@ -40,6 +40,8 @@ async def ask_question(request: QuestionRequest, user: dict = Depends(get_curren
     
     prompt = f"""
     Answer the user's question based on the context provided.
+    Do not use markdown lists or asterisks (*) for bullet points, prefer clean paragraphs.
+    
     Context:
     {context}
     

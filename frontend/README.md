@@ -1,6 +1,6 @@
-# ConvoDoc Ai Frontend
+# ConvoDoc ai Frontend
 
-The frontend for ConvoDoc Ai, built with Next.js 14, Tailwind CSS, and React Flow. It provides a modern, neomorphic interface for interacting with your documents.
+The frontend for ConvoDoc ai, built with Next.js 14, Tailwind CSS, and React Flow. It provides a modern, neomorphic interface for interacting with your documents.
 
 ## Features
 
@@ -36,6 +36,6 @@ The frontend for ConvoDoc Ai, built with Next.js 14, Tailwind CSS, and React Flo
 Build and run the frontend container:
 
 ```bash
-docker build -t curiobot-frontend .
-docker run -p 3000:3000 curiobot-frontend
+docker build -t convodocai-frontend .
+docker run -p 3000:3000 convodocai-frontend
 ```

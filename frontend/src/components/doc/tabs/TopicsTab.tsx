@@ -17,7 +17,7 @@ export default function TopicsTab({ topics, explanations, hasExplanations }: Top
           <div key={topic} className="neo-shadow p-6 rounded-2xl bg-[#e0e5ec]">
             <h3 className="text-lg font-bold text-primary mb-2">{topic}</h3>
             {hasExplanations ? (
-              <p className="text-gray-600 leading-relaxed">
+              <p className="text-gray-600 leading-relaxed whitespace-pre-wrap">
                 {renderText(explanations?.[topic] || "No explanation available for this topic.")}
               </p>
             ) : (

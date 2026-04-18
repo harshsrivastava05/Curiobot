@@ -8,7 +8,7 @@ import Footer from "@/components/Footer";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: "ConvoDoc Ai",
+  title: "ConvoDoc ai",
   description: "AI-Powered Study Automation",
 };
 

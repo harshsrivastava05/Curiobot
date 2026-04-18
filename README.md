@@ -1,6 +1,6 @@
-# ConvoDoc Ai
+# ConvoDoc ai
 
-ConvoDoc Ai is an AI-powered study assistant that transforms PDF documents into interactive learning experiences. It generates dynamic mind maps, extracts key topics, and provides an intelligent Q&A chat interface to help students understand complex material faster.
+ConvoDoc ai is an AI-powered study assistant that transforms PDF documents into interactive learning experiences. It generates dynamic mind maps, extracts key topics, and provides an intelligent Q&A chat interface to help students understand complex material faster.
 
 ## Visuals
 
