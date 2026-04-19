@@ -6,7 +6,7 @@ settings = get_settings()
 
 # Initialize Pinecone
 pc = Pinecone(api_key=settings.PINECONE_API_KEY)
-index = pc.Index("curiobot") # Assuming index name is 'curiobot' as per screenshot
+index = pc.Index("curiobot") 
 
 # Initialize Embedding Model
 genai.configure(api_key=settings.GEMINI_API_KEY)
