@@ -1,6 +1,6 @@
-# ConvoDoc ai Backend
+# CurioBot Backend
 
-The backend for ConvoDoc ai, an AI-powered document assistant. Built with FastAPI, it handles document processing, vector embeddings, and LLM interactions.
+The backend for CurioBot, an AI-powered document assistant. Built with FastAPI, it handles document processing, vector embeddings, and LLM interactions.
 
 ## Features
 
@@ -37,8 +37,8 @@ The backend for ConvoDoc ai, an AI-powered document assistant. Built with FastAP
 Build and run the backend container:
 
 ```bash
-docker build -t convodocai-backend .
-docker run -p 8000:8000 --env-file .env convodocai-backend
+docker build -t curiobot-backend .
+docker run -p 8000:8000 --env-file .env curiobot-backend
 ```
 
 ## API Documentation

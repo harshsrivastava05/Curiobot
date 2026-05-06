@@ -1,10 +1,10 @@
 services:
   backend:
-    image: harshsrivastava05/convodocai-backend:latest
+    image: harshsrivastava05/curiobot-backend:latest
     build:
       context: ./backend
       dockerfile: Dockerfile
-    container_name: convodocai-backend
+    container_name: curiobot-backend
     ports:
       - "8000:8000"
     volumes:
@@ -23,7 +23,7 @@ services:
 
   redis:
     image: redis:alpine
-    container_name: convodocai-redis
+    container_name: curiobot-redis
     ports:
       - "6379:6379"
     networks:
@@ -31,11 +31,11 @@ services:
     restart: always
 
   frontend:
-    image: harshsrivastava05/convodocai-frontend:latest
+    image: harshsrivastava05/curiobot-frontend:latest
     build:
       context: ./frontend
       dockerfile: Dockerfile.dev
-    container_name: convodocai-frontend
+    container_name: curiobot-frontend
     ports:
       - "3000:3000"
     volumes:
@@ -46,6 +46,7 @@ services:
       - ./frontend/.env
     environment:
       - API_URL=http://backend:8000
+      - NODE_OPTIONS=--dns-result-order=ipv4first
     depends_on:
       - backend
     networks:

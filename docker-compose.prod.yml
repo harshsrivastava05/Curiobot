@@ -5,8 +5,8 @@ services:
     build:
       context: ./backend
       dockerfile: Dockerfile
-    image: harshsrivastava05/convodocai-backend-prod:latest
-    container_name: convodocai-backend-prod
+    image: harshsrivastava05/curiobot-backend-prod:latest
+    container_name: curiobot-backend-prod
     ports:
       - "8000:8000"
     # Unified production .env file handling
@@ -24,7 +24,7 @@ services:
 
   redis:
     image: redis:alpine
-    container_name: convodocai-redis-prod
+    container_name: curiobot-redis-prod
     ports:
       - "6379:6379"
     networks:
@@ -40,8 +40,8 @@ services:
       args:
         # Pass public URL dynamically during build time
         - NEXT_PUBLIC_API_URL=${NEXT_PUBLIC_API_URL:-http://localhost:8000}
-    image: harshsrivastava05/convodocai-frontend-prod:latest
-    container_name: convodocai-frontend-prod
+    image: harshsrivastava05/curiobot-frontend-prod:latest
+    container_name: curiobot-frontend-prod
     ports:
       # Expose on standard HTTP port 80
       - "3000:3000"

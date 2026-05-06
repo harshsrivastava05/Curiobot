@@ -3,7 +3,7 @@ from pydantic_settings import BaseSettings
 from functools import lru_cache
 
 class Settings(BaseSettings):
-    PROJECT_NAME: str = "ConvoDoc ai"
+    PROJECT_NAME: str = "CurioBot"
     API_V1_STR: str = "/api/v1"
     
     DATABASE_URL: str

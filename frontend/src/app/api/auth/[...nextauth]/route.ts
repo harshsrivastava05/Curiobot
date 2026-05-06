@@ -1,5 +1,8 @@
 import NextAuth from "next-auth";
 import GoogleProvider from "next-auth/providers/google";
+import dns from "dns";
+
+dns.setDefaultResultOrder("ipv4first");
 
 const handler = NextAuth({
   providers: [

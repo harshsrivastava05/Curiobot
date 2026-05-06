@@ -1,4 +1,4 @@
-# ConvoDoc ai Deployment Guide (Google Compute Engine)
+# CurioBot Deployment Guide (Google Compute Engine)
 
 This guide provides step-by-step instructions for deploying your Docker-compose application to a Google Compute Engine VM in Google Cloud Platform (GCP).
 
@@ -6,7 +6,7 @@ This guide provides step-by-step instructions for deploying your Docker-compose 
 
 1. Go to the [Google Cloud Console](https://console.cloud.google.com/compute/instances).
 2. Click **Create Instance**.
-3. **Name**: `convodocai-prod`
+3. **Name**: `curiobot-prod`
 4. **Region/Zone**: Choose one closest to your users.
 5. **Machine Configuration**: `e2-medium` (Recommended for running multiple containers) or `e2-micro` (If trying to stay in Free Tier, but it may struggle with Docker build steps if memory usage spikes).
 6. **Boot Disk**: Switch to **Ubuntu 22.04 LTS**. Change the size to at least 20GB.
@@ -95,7 +95,7 @@ Your app should now be live at `http://<YOUR_VM_EXTERNAL_IP>` !
 
 ---
 
-## 🚀 Future Steps: Adding a Domain Name (e.g., convodocai.ai)
+## 🚀 Future Steps: Adding a Domain Name (e.g., curiobot.ai)
 
 When you are ready to point a domain to your service (which provides a much better experience and allows for SSL/HTTPS), follow these exact steps:
 
@@ -148,12 +148,12 @@ Add these rules:
 
 ```caddyfile
 # Frontend Requests
-convodocai.ai {
+curiobot.ai {
     reverse_proxy frontend:3000
 }
 
 # Backend API Requests
-api.convodocai.ai {
+api.curiobot.ai {
     reverse_proxy backend:8000
 }
 ```
@@ -162,8 +162,8 @@ api.convodocai.ai {
 Now that you have a domain, update the variables inside the server's `.env`:
 
 ```env
-NEXTAUTH_URL="https://convodocai.ai"
-NEXT_PUBLIC_API_URL="https://api.convodocai.ai"
+NEXTAUTH_URL="https://curiobot.ai"
+NEXT_PUBLIC_API_URL="https://api.curiobot.ai"
 ```
 
 4. **Re-Deploy**
