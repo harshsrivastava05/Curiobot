@@ -9,7 +9,7 @@ settings = get_settings()
 
 genai.configure(api_key=settings.GEMINI_API_KEY)
 
-GEMINI_MODEL = "gemini-2.5-flash"
+GEMINI_MODEL = "gemini-3.1-flash-lite-preview"
 
 async def generate_content(prompt: str, model: str = None) -> str:
     target_model = model or GEMINI_MODEL
